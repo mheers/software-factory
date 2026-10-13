@@ -1,0 +1,29 @@
+{
+  "_comment": [
+    "CI states a coordinator has declared to be the ANSWER rather than a gap.",
+    "",
+    "Declared as {\"state\": \"NONE\" | \"BLOCKED\", \"because\": \"...\"} per repository, and",
+    "read from FLEET_EXPECTED_CI — a state file rather than a code edit, so this is updated",
+    "without touching a script.",
+    "",
+    "WHY THIS EXISTS. A monitor that reports the same repositories at every run for as long as",
+    "the work takes is a report nobody reads — and the alerts before it had real substance,",
+    "which is exactly why the channel trained its reader to skim. The line that matters is the",
+    "one that is NEW.",
+    "",
+    "WHAT A DECLARATION IS NOT. It is not a pass. `main` was not verified in a declared",
+    "repository, and a declaration is a claim the script cannot check — so declaring",
+    "WITHHOLDS the all-clear rather than granting it. Declaring can only ever make the report",
+    "louder, never quieter. That asymmetry is the safety property, and it is why this",
+    "mechanism cannot be used to silence the monitor.",
+    "",
+    "REMOVE AN ENTRY THE MOMENT IT STOPS MATCHING. A declaration the tracker has outgrown is",
+    "reported under DECLARED STALE, and one that turned into a real RED is a fault in its own",
+    "right — a mechanism that lets a coordinator hide a red behind a stale declaration loses",
+    "that red for good.",
+    "",
+    "A fresh workspace starts with none: every repository is then reported as if it never",
+    "were declared, which is the safe direction."
+  ],
+  "repositories": {}
+}

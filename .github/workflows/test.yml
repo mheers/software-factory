@@ -1,0 +1,29 @@
+name: gate
+
+# The factory's own gate, on every push and pull request.
+#
+# `AGENTS.md` defines the gate block and `scripts/test_meta_gate.py` runs it **as written** —
+# including the check that every `scripts/test_*.py` on disk is named in the block. That is the
+# point of running it here rather than a list of commands typed into the workflow: a test that
+# exists but is not in the block, or a block command that does not exist, fails instead of being
+# believed.
+#
+# `test_gitlab_ci.py` is deliberately not in the block (one case asserts the *workspace's*
+# GitLab profile resolves — an environment fact, not a repository one), so CI does not need a
+# GitLab credential. The tests stub `herdr`, `git`, `glab` and `gh` through `PATH`; no network.
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: the documented gate, as written
+        run: python3 scripts/test_meta_gate.py

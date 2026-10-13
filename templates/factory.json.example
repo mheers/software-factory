@@ -1,0 +1,40 @@
+{
+  "_comment": [
+    "factory.json — the workspace's machine-readable configuration.",
+    "",
+    "Copy this file to the meta repository root as `factory.json` and edit it. Every factory",
+    "script resolves each key in three steps: the environment override, then this file, then the",
+    "shipped template defaults — so a workspace with no factory.json runs on the documented",
+    "defaults. A config NAMED by FACTORY_CONFIG that cannot be read, or a factory.json that does",
+    "not parse, is a hard exit 2: 'cannot tell' is never a pass.",
+    "",
+    "Paths may be absolute or relative to the meta repository root. `<meta>` and `<workspace>`",
+    "are substituted with the meta repository's path and the workspace root. State files live",
+    "in `<state_dir>` unless `paths` names them individually."
+  ],
+
+  "meta_repo": "<meta-repo>",
+  "workspace": "/absolute/path/to/<workspace>",
+  "registry": "apps.json",
+  "branch_prefix": "issue-",
+
+  "tracker": {
+    "provider": "gitlab",
+    "owner": "<owner-or-group>"
+  },
+
+  "paths": {
+    "state_dir": ".fleet-state",
+    "fleet_manifest": "<meta>/.fleet-state/fleet.json",
+    "main_sweep_record": "<meta>/.fleet-state/main-sweep.json",
+    "expected_ci": "<meta>/.fleet-state/expected-ci.json",
+    "expected_red": "<meta>/.fleet-state/expected-red.json",
+    "browser_grant": "/tmp/opencode/browser-grant"
+  },
+
+  "labels": {
+    "todo": "status::todo",
+    "doing": "status::doing",
+    "blocked": "status::blocked"
+  }
+}

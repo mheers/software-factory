@@ -1,0 +1,36 @@
+name: Task
+description: A unit of work with an observable outcome
+title: "task: "
+labels: ["type::task"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      description: One sentence.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: The problem, not the solution.
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Done means
+      value: |
+        - [ ] the observable outcome
+        - [ ] a test failed first, then passed
+        - [ ] evidence pasted below
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Constraints, links, prior decisions.
+    validations:
+      required: false

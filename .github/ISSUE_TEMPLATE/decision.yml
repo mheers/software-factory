@@ -1,0 +1,35 @@
+name: Decision
+description: A choice that has to be made, and its consequences
+title: "decision: "
+labels: ["type::decision"]
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: The question
+      description: The decision to be made, stated so it can be answered.
+    validations:
+      required: true
+  - type: textarea
+    id: options
+    attributes:
+      label: Options
+      value: |
+        - **A** — option — pros / cons
+        - **B** — option — pros / cons
+    validations:
+      required: true
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision
+      description: The chosen option, and why.
+    validations:
+      required: false
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Consequences
+      description: What this makes easy, and what it makes hard.
+    validations:
+      required: false

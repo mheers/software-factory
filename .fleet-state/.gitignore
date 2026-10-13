@@ -1,0 +1,19 @@
+# Fleet runtime state: the manifest of live workers, the watcher's last-seen
+# signatures, the notify hash and the keepalive log.
+#
+# None of this belongs in git — it is machine state that changes every few minutes
+# and describes worktrees that exist on one machine. But it must not live in /tmp
+# either: a cleared /tmp takes the manifest with it, and the manifest is the record
+# of which panes are live workers. Without it the whole fleet is invisible and every
+# sweep reports "nothing".
+#
+# ONE EXCEPTION, and it is not machine state.
+#
+# `expected-ci.json` is a DECISION about the family, not a record of this machine: it says
+# which repositories have no pipeline on main *by design*, and which are blocked on CI
+# minutes rather than on code. It names repositories in the registry, which is committed.
+# So it is tracked, deliberately: a decision that only exists on the machine that made it
+# is not a decision, and a fresh clone without it silently loses the declarations.
+*
+!.gitignore
+!expected-ci.json

@@ -1,0 +1,34 @@
+name: Bug
+description: Something is broken, with a reproduction
+title: "bug: "
+labels: ["type::bug"]
+body:
+  - type: textarea
+    id: broke
+    attributes:
+      label: What broke
+      description: The symptom, in one sentence.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      value: |
+        1.
+        2.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Test output, logs, screenshot — the failing run, not a summary of it.
+    validations:
+      required: true

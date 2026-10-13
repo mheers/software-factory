@@ -1,0 +1,29 @@
+# credentials and tracker profiles — never commit
+.gitlab-cli/
+glab-token
+gh-token
+.env
+
+# build output
+bin/
+dist/
+node_modules/
+*.db
+*.db-shm
+*.db-wal
+data/
+
+# python bytecode — scripts/test_*.py import their subjects by path, so running the tests
+# writes scripts/__pycache__/ and a later `git add -A` would commit it
+__pycache__/
+*.pyc
+
+# machine state that is not a decision: the fleet manifest, watcher state, sweep records.
+# `.fleet-state/.gitignore` un-ignores the one exception — expected-ci.json, which is a
+# decision about the family and must survive a fresh clone (see that file).
+.fleet-state/*
+!.fleet-state/.gitignore
+!.fleet-state/expected-ci.json
+
+# worktrees of this repository's workers are siblings, never inside it; a stray one is a mistake
+/*-issue-*/

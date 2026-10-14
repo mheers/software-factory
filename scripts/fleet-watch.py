@@ -162,7 +162,15 @@ def live_panes() -> list[tuple[str, str, str]]:
     # Two levels, not one: the shared modules live under shared/, and a
     # worker in either would otherwise be invisible here — which is the same silent
     # failure this script exists to remove.
-    candidates = list(WORKSPACE.iterdir()) + list((WORKSPACE / "shared").iterdir())
+    #
+    # A workspace with no shared modules is a legitimate layout — the decision belongs to the
+    # workspace — and then there is no `shared/` at all; the walk must not crash on it.
+    # Measured 2026-10-14 on the first workspace bootstrapped from the template with no shared
+    # modules: every sweep reported "nothing", with this traceback swallowed underneath.
+    candidates = list(WORKSPACE.iterdir())
+    shared = WORKSPACE / "shared"
+    if shared.is_dir():
+        candidates += list(shared.iterdir())
     for child in sorted(candidates):
         if not child.is_dir() or not (child / ".git").exists():
             continue

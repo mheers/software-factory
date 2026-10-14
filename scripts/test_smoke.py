@@ -53,9 +53,10 @@ class TheFactoryEndToEnd(unittest.TestCase):
     def setUp(self) -> None:
         self.ws = Path(tempfile.mkdtemp(prefix="smoke-workspace."))
         self.addCleanup(shutil.rmtree, self.ws, True)
-        # `fleet-watch` sweeps `shared/` beside the workspace repositories; without it the
-        # walk raises instead of reporting.
-        (self.ws / "shared").mkdir()
+        # Deliberately no `shared/` here: a workspace with no shared modules is a legitimate
+        # layout (decision 2026-10-14), and `live_panes()` has to sweep it without raising.
+        # This used to create the directory because the walk raised without it — which is
+        # exactly the failure this arrangement now covers.
 
         self.alpha = self.ws / "alpha"
         self.beta = self.ws / "beta"

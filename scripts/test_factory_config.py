@@ -60,6 +60,26 @@ class ConfigTestCase(unittest.TestCase):
 
 
 class TheShippedDefaults(ConfigTestCase):
+    """Assert the shipped defaults through an EMPTY named config.
+
+    A workspace's own `factory.json` exists precisely to override these values, so reading
+    them through the workspace's file makes this red in every configured workspace — measured
+    on 2026-10-14, when the first workspace bootstrapped from the template ran its gate and
+    found exactly that. An empty config is the state the shipped defaults describe.
+    """
+
+    def setUp(self) -> None:
+        super().setUp()
+        self._empty_config_dir = tempfile.TemporaryDirectory()
+        empty = Path(self._empty_config_dir.name) / "factory.json"
+        empty.write_text("{}")
+        os.environ["FACTORY_CONFIG"] = str(empty)
+        fc.reset()
+
+    def tearDown(self) -> None:
+        self._empty_config_dir.cleanup()
+        super().tearDown()
+
     def test_the_meta_root_is_the_repository_this_module_lives_in(self):
         self.assertEqual(fc.meta_root(), HERE.parent)
         self.assertTrue((fc.meta_root() / "scripts" / "factory_config.py").is_file())
